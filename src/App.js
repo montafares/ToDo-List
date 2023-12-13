@@ -1,24 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
-
+import Todolist from "./components/Todolist";
+import "./App.css";
+import HeroImage from "./Images/back.png";
+import Dialog from "./components/Dialog";
+import styled from "@emotion/styled";
+import Provider from "./contexts/actions/Reducers.js";
 function App() {
+  const Wrapper = styled.div`
+    display: flex;
+  `;
+  const Img = styled.img`
+    height: 800px;
+    margin-left: 90px;
+  `;
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    
+      <Wrapper>
+        <Provider>
+        <Todolist/>
+        </Provider>
+        <Img src={HeroImage} alt="img" className="img" />
+      </Wrapper>
   );
 }
 
