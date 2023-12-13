@@ -1,4 +1,5 @@
-import { useState, useEffect, useReducer, useContext } from "react";
+import { useState, useEffect, useReducer, useContext, } from "react";
+import React from "react";
 import styled from "@emotion/styled";
 import Dialog from "./Dialog";
 import Svg from "../Images/gridicons_cross-small.svg";
@@ -128,6 +129,7 @@ function Todolist(index) {
   const [inputNbr, setInputNbr] = useState(null);
   const { tasks, dispatch } = useContext(TodoListContext);
   const handleAddToDo = (e) => {
+    
     if (
       (e.key === "Enter" || e.type === "click") &&
       inputToDo !== "" &&
@@ -146,7 +148,7 @@ function Todolist(index) {
   };
   const [dialog, setDialog] = useState({
     isOpen: false,
-    index: null,
+    // index: null,
   });
   useEffect(() => {
     window.addEventListener("keydown", handleAddToDo);
@@ -154,8 +156,7 @@ function Todolist(index) {
       window.removeEventListener("keydown", handleAddToDo);
     };
   });
-  const handleIteamDone = (index) => {
-    console.log(index);
+  const handleIteamDone = () => {
 
     dispatch({
       type: "TOGGLE",
@@ -163,13 +164,9 @@ function Todolist(index) {
     });
   };
   const handleDeleteIteam = (index) => {
-    console.log(index);
-
+      console.log(index);
     setDialog({ isOpen: true, index });
-    // dispatch({
-    //   type: "DELETE",
-    //   index,
-    // });
+
   };
   const [value, setValue] = useState("");
   const onchange = (e) => {
@@ -211,7 +208,7 @@ function Todolist(index) {
           onChange={(e) => setInputNbr(e.target.value)}
         />
         <AddTods onClick={handleAddToDo}> Add</AddTods>
-        <Container key={index}> 
+        <Container > 
           {dialog.isOpen && (
             <Dialog
               onCancel={() => setDialog({ isOpen: false })}
@@ -223,9 +220,9 @@ function Todolist(index) {
           <ul >
             {tasks.todos.map(({ newToDo, completed, number }, index) => {
               return (
-                <>
+                <React.Fragment key={index}>
                   {!value ? (
-                    <Index >
+                    <Index>
                       <li 
                         className={completed ? "done" : ""}
                         onClick={() => handleIteamDone(index)}
@@ -272,7 +269,7 @@ function Todolist(index) {
                       </span>
                     </Index>
                   ) : null}
-                </>
+                </React.Fragment>
               );
             })}
             <Eclipse src={Eclipse4} alt="alt" />

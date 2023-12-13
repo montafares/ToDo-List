@@ -29,7 +29,6 @@ export const  Dialog = ({ onCancel, confirm, index, isOpen, todos, setDialog })=
     });
     setDialog({ isOpen: false });
   };
-  console.log(todos);
   return (
     <PopDialog>
       <h3>{message}</h3>

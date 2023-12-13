@@ -20,13 +20,11 @@ export const tasksReducer = (tasks, action) => {
     case "TOGGLE": {
       console.log(tasks.todos);
 
-      return  {
-        todos: 
-        [
+      return [
         tasks.todos.map((t, index) =>
           index === action.index ? { ...t, completed: !t.completed } : t
         ),
-      ]};
+      ];
     }
     // case "CHANGE": {
     //   return tasks.map((t) => {
@@ -38,7 +36,7 @@ export const tasksReducer = (tasks, action) => {
     //   });
     // }
     case "DELETE": {
-      const idx = tasks.todos.findIndex(t => t.id === action.index);
+      const idx = tasks.todos.findIndex(t => t.id === action.id);
       const todos = Object.assign([],tasks.todos);
       todos.splice(idx,1);
       return {
