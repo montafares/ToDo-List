@@ -1,6 +1,6 @@
 import React, { useReducer, useState, useContext } from "react";
 import styled from "@emotion/styled";
-import { TodoListContext }  from "../contexts/actions/Reducers.js";
+import { TodoListContext }  from "../contexts/Reducers.js";
 export const  Dialog = ({ onCancel, confirm, index, isOpen, todos, setDialog })=> {
   const message = "Are you sure you?";
   const { tasks, dispatch } = useContext(TodoListContext);
@@ -21,22 +21,25 @@ export const  Dialog = ({ onCancel, confirm, index, isOpen, todos, setDialog })=
     border-radius: 4px;
     cursor: pointer;
   `;
+  console.log(index);
   const onDelete = () => {
-    console.log(index);
     dispatch({
       type: "DELETE",
-      index,
-    });
+     id: index,
+    }); 
     setDialog({ isOpen: false });
+  console.log(index);
+
   };
   return (
+
     <PopDialog>
       <h3>{message}</h3>
       <div>
         <Button className="cancel" onClick={onCancel}>
           Cancel
         </Button>
-        <Button id={confirm} color="red" onClick={() => onDelete()}>
+        <Button id={confirm} color="red" onClick={() => onDelete(index)}>
           Delete
         </Button>
       </div>

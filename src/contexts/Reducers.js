@@ -1,11 +1,13 @@
 import React from "react";
 
 export const TodoListContext = React.createContext();
+let letid = 0;
 
 export const tasksReducer = (tasks, action) => {
   switch (action.type) {
     case "ADD": {
       return {
+        
         todos: [
           ...tasks.todos,
 
@@ -13,38 +15,34 @@ export const tasksReducer = (tasks, action) => {
             newToDo: action.newToDo,
             number: action.number,
             completed: false,
+            id : letid++,
+            
           },
+          
         ],
       };
+      
     }
-    case "TOGGLE": {
-      console.log(tasks.todos);
-
-      return [
-        tasks.todos.map((t, index) =>
-          index === action.index ? { ...t, completed: !t.completed } : t
-        ),
-      ];
-    }
-    // case "CHANGE": {
-    //   return tasks.map((t) => {
-    //     if (t.done !== action.task.done) {
-    //       return action.task;
-    //     } else {
-    //       return t;
-    //     }
-    //   });
-    // }
-    case "DELETE": {
-      const idx = tasks.todos.findIndex(t => t.id === action.id);
-      const todos = Object.assign([],tasks.todos);
-      todos.splice(idx,1);
-      return {
-        todos  : todos
-      };
     
+    case "TOGGLE": {
+      return {
+        ...tasks,
+      todos:
+     
+        tasks.todos.map((t,id) =>
+          id === action.id ? { ...t, completed: !t.completed } : t
+        ),
+      };
     }
-
+    case "DELETE": {
+        const idx  = tasks.todos.findIndex((t,id) => id === action.id);
+      const todos = Object.assign([],tasks.todos);
+      console.log(todos);
+      todos.splice(idx, 1);
+      return {       
+        todos  :todos
+      };
+        }
     default: {
       return tasks;
     }
@@ -54,6 +52,7 @@ export const tasksReducer = (tasks, action) => {
 export const Provider = ({ children }) => {
   const [tasks, dispatch] = React.useReducer(tasksReducer, { todos: [] });
   return (
+
     <TodoListContext.Provider value={{ tasks, dispatch }}>
       {children}
     </TodoListContext.Provider>

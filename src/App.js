@@ -3,7 +3,7 @@ import "./App.css";
 import HeroImage from "./Images/back.png";
 import Dialog from "./components/Dialog";
 import styled from "@emotion/styled";
-import Provider from "./contexts/actions/Reducers.js";
+import Provider from "./contexts/Reducers.js";
 function App() {
   const Wrapper = styled.div`
     display: flex;
@@ -13,13 +13,12 @@ function App() {
     margin-left: 90px;
   `;
   return (
-    
+    <Provider>
       <Wrapper>
-        <Provider>
-        <Todolist/>
-        </Provider>
+                <Todolist/>
         <Img src={HeroImage} alt="img" className="img" />
       </Wrapper>
+      </Provider>
   );
 }
 

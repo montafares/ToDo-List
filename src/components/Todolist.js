@@ -1,4 +1,4 @@
-import { useState, useEffect, useReducer, useContext, } from "react";
+import { useState, useEffect,  useContext, } from "react";
 import React from "react";
 import styled from "@emotion/styled";
 import Dialog from "./Dialog";
@@ -7,7 +7,7 @@ import Eclipse1 from "../Images/Ellipse 1.png";
 import Eclipse2 from "../Images/Ellipse 2.png";
 import Eclipse3 from "../Images/Ellipse 3.png";
 import Eclipse4 from "../Images/Ellipse 4.png";
-import { TodoListContext } from "../contexts/actions/Reducers.js";
+import { TodoListContext } from "../contexts/Reducers.js";
 const Wrapper = styled.div`
   border: 3px solid #3d3d3d;
   margin-top: 58px;
@@ -129,148 +129,85 @@ function Todolist(index) {
   const [inputNbr, setInputNbr] = useState(null);
   const { tasks, dispatch } = useContext(TodoListContext);
   const handleAddToDo = (e) => {
-    
-    if (
-      (e.key === "Enter" || e.type === "click") &&
-      inputToDo !== "" &&
-      inputNbr > 0
-    ) {
+    if ((e.key === "Enter" || e.type === "click") &&
+      inputToDo !== "" && inputNbr !== null) {
       setInpuToDo("");
       setInputNbr(null);
       if (inputToDo === "" || inputNbr === "") return;
       dispatch({
-        type: "ADD",
-        newToDo: inputToDo,
-        number: inputNbr,
-        completed: false,
-      });
-    }
-  };
+        type: "ADD", newToDo: inputToDo,
+        number: inputNbr, completed: false,});} };
   const [dialog, setDialog] = useState({
-    isOpen: false,
-    // index: null,
-  });
-  useEffect(() => {
-    window.addEventListener("keydown", handleAddToDo);
-    return () => {
-      window.removeEventListener("keydown", handleAddToDo);
-    };
-  });
-  const handleIteamDone = () => {
-
-    dispatch({
-      type: "TOGGLE",
-      index,
-    });
-  };
+    isOpen: false, index: null,  });
+  useEffect(() => {window.addEventListener("keydown", handleAddToDo);
+    return () => { window.removeEventListener("keydown", handleAddToDo);    };  });
+  const handleIteamDone = (index) => {
+      dispatch({
+        type: "TOGGLE", id: index, })};
   const handleDeleteIteam = (index) => {
-      console.log(index);
-    setDialog({ isOpen: true, index });
-
-  };
+    setDialog({ isOpen: true, index });  };
   const [value, setValue] = useState("");
   const onchange = (e) => {
-    setValue(e.target.value);
-  };
+    setValue(e.target.value);  };
   return (
       <Wrapper className="App" >
         <Eclipse
-          src={Eclipse1}
-          alt="alt"
-          bottom="bottom"
-          width="width"
-          height="height"
-        />
+          src={Eclipse1} alt="alt" bottom="bottom"
+          width="width"height="height" />
         <Title>Shoping List</Title>
         <ToDolistinput
-          type="text"
-          left="left"
-          right="right"
-          width="width_search"
-          placeholder="Search here"
-          value={value}
-          id="search"
-          onChange={onchange}
-        />
+          type="text" left="left"right="right"
+          width="width_search" placeholder="Search here"
+          value={value}id="search" onChange={onchange}   />
         <ToDolistinput
-          width="width"
-          top="top"
-          left="left"
-          type="text"
-          placeholder="Title..."
+          width="width"top="top"left="left"
+          type="text" placeholder="Title..."
           value={inputToDo || ""}
-          onChange={(e) => setInpuToDo(e.target.value)}
-        />
+          onChange={(e) => setInpuToDo(e.target.value)} />
         <ToDolistinput
-          type="number"
-          placeholder="Nbr"
-          value={inputNbr || ""}
-          onChange={(e) => setInputNbr(e.target.value)}
-        />
+          type="number" placeholder="Nbr" min="1"
+          value={inputNbr || ""}onChange={(e) => setInputNbr(e.target.value)}/>
         <AddTods onClick={handleAddToDo}> Add</AddTods>
         <Container > 
-          {dialog.isOpen && (
+          {dialog.isOpen && (            
             <Dialog
               onCancel={() => setDialog({ isOpen: false })}
-              index={index}
+              index={dialog.index}
               todos={tasks}
-              setDialog={setDialog}
-            />
-          )}
+              setDialog={setDialog} />)}
           <ul >
-            {tasks.todos.map(({ newToDo, completed, number }, index) => {
-              return (
-                <React.Fragment key={index}>
-                  {!value ? (
+            {tasks.todos.map(({ newToDo, completed, number, },index) => {
+             return (<React.Fragment key={index}>
+                   {!value ? (                  
                     <Index>
-                      <li 
-                        className={completed ? "done" : ""}
-                        onClick={() => handleIteamDone(index)}
-                      >
-                        {
-                          <Displaylist inline="inline" back="back">
-                            {number}
-                          </Displaylist>
-                        }
-                        {
-                          <Displaylist width="width" color="color">
-                            {newToDo}
-                          </Displaylist>
-                        }
+                      <li className={completed ? "done" : ""}
+                        onClick={() => handleIteamDone(index )}   >
+                        {  <Displaylist inline="inline" back="back">
+                            {number} </Displaylist>}
+                        {<Displaylist width="width" color="color">
+                            {newToDo} </Displaylist> }
                       </li>
-                      <span  
-                        onClick={() => handleDeleteIteam()}
-                        className="trash"
-                      >
+                      <span onClick={() => handleDeleteIteam(index)}
+                        className="trash">
                         <img src={Svg} alt="alt" />
                       </span>
-                    </Index>
-                  ) : newToDo
-                      .toLowerCase()
-                      .includes(value && value.toLowerCase()) ? (
-                    <Index>
-                      <li
-                        className={completed ? "done" : ""}
-                        onClick={() => handleIteamDone(index)}
-                      >
+                    </Index>) 
+                   : newToDo.toLowerCase().includes(value && value.toLowerCase()) ? 
+                   ( <Index>
+                      <li className={completed ? "done" : ""}
+                        onClick={() => handleIteamDone(index)}>
                         <Displaylist inline="inline" back="back">
-                          {number}
-                        </Displaylist>
+                          {number}</Displaylist>
                         <Displaylist width="width" color="color">
-                          {" "}
-                          {newToDo}
-                        </Displaylist>
+                          {" "}{newToDo} </Displaylist>
                       </li>
-                      <span
-                        onClick={() => handleDeleteIteam()}
-                        className="trash"
-                      >
+                      <span onClick={() => handleDeleteIteam(index)}
+                        className="trash">
                         <img src={Svg} alt="alt" />
                       </span>
                     </Index>
                   ) : null}
-                </React.Fragment>
-              );
+                </React.Fragment>);
             })}
             <Eclipse src={Eclipse4} alt="alt" />
             <Eclipse src={Eclipse3} alt="alt" />
