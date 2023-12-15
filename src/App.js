@@ -1,7 +1,7 @@
 import Todolist from "./components/Todolist";
+import HomePage from "./components/HomePage";
 import "./App.css";
 import HeroImage from "./Images/back.png";
-import Dialog from "./components/Dialog";
 import styled from "@emotion/styled";
 import Provider from "./contexts/Reducers.js";
 function App() {
@@ -16,6 +16,7 @@ function App() {
     <Provider>
       <Wrapper>
                 <Todolist/>
+                <HomePage/>
         <Img src={HeroImage} alt="img" className="img" />
       </Wrapper>
       </Provider>

@@ -1,4 +1,4 @@
-import React, { useReducer, useState, useContext } from "react";
+import React, {  useContext } from "react";
 import styled from "@emotion/styled";
 import { TodoListContext }  from "../contexts/Reducers.js";
 export const  Dialog = ({ onCancel, confirm, index, isOpen, todos, setDialog })=> {

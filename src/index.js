@@ -1,12 +1,20 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
+import * as ReactDOM from "react-dom/client";
+import { HomePage } from "../src/components/HomePage.js";
+import { Todolist } from "../src/components/Todolist.js";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"; // Updated import
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    <Router>
+      <Routes>
+        <Route path="/" element={<App />} />
+        <Route path="homepage" element={<HomePage />} />
+        <Route path="Todolist" element={<Todolist />} />
+      </Routes>
+    </Router>
   </React.StrictMode>
 );
 
