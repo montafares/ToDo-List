@@ -4,6 +4,12 @@ export const TodoListContext = React.createContext();
 let letid = 0;
 
 export const tasksReducer = (tasks, action) => {
+  if (localStorage.getItem('todos')) {
+    let ls = localStorage.getItem('todos');
+    let todosarray = ls.split(',');
+    console.log(todosarray);
+    tasks =  todosarray;
+  }
   switch (action.type) {
     case "ADD": {
       return {
@@ -24,6 +30,7 @@ export const tasksReducer = (tasks, action) => {
       
     }
     
+
     case "TOGGLE": {
       return {
         ...tasks,

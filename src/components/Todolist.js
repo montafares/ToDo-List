@@ -7,8 +7,7 @@ import Eclipse2 from "../Images/Ellipse 2.png";
 import Eclipse3 from "../Images/Ellipse 3.png";
 import Eclipse4 from "../Images/Ellipse 4.png";
 import { TodoListContext } from "../contexts/Reducers.js";
-import {Wrapper,Title,ToDolistinput,AddTods,Displaylist,Index,Container,Eclipse,  } from "./Style.js";
-
+import {Wrapper,Title,ToDolistinput,AddTods,Displaylist,Index,Container,Eclipse,Day,Button  } from "./Style.js";
 export const Todolist = (index)=> {
   const [inputToDo, setInpuToDo] = useState("");
   const [inputNbr, setInputNbr] = useState(null);
@@ -34,6 +33,11 @@ export const Todolist = (index)=> {
   const [value, setValue] = useState("");
   const onchange = (e) => {
     setValue(e.target.value);  };
+  const today = new Date();
+  const month = today.getMonth()+1;
+  const year = today.getFullYear();
+  const date = today.getDate();
+  const currentDate = date + "/" + month + "/" + year; 
   return (
       <Wrapper className="App" >
         <Eclipse
@@ -72,11 +76,14 @@ export const Todolist = (index)=> {
                         {<Displaylist width="width" color="color">
                             {newToDo} </Displaylist> }
                       </li>
+                      <Day >{currentDate}</Day>
                       <span onClick={() => handleDeleteIteam(index)}
                         className="trash">
                         <img src={Svg} alt="alt" />
                       </span>
-                    </Index>) 
+                    </Index>
+                    ) 
+
                    : newToDo.toLowerCase().includes(value && value.toLowerCase()) ? 
                    ( <Index>
                       <li className={completed ? "done" : ""}
@@ -85,7 +92,7 @@ export const Todolist = (index)=> {
                           {number}</Displaylist>
                         <Displaylist width="width" color="color">
                           {" "}{newToDo} </Displaylist>
-                      </li>
+                      </li><Day >{currentDate}</Day>
                       <span onClick={() => handleDeleteIteam(index)}
                         className="trash">
                         <img src={Svg} alt="alt" />
@@ -94,6 +101,8 @@ export const Todolist = (index)=> {
                   ) : null}
                 </React.Fragment>);
             })}
+                    <Button>Stock Data</Button>
+
             <Eclipse src={Eclipse4} alt="alt" />
             <Eclipse src={Eclipse3} alt="alt" />
             <Eclipse src={Eclipse2} alt="alt" />

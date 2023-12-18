@@ -1,20 +1,26 @@
 import React from "react";
 import * as ReactDOM from "react-dom/client";
-import { HomePage } from "../src/components/HomePage.js";
-import { Todolist } from "../src/components/Todolist.js";
+import  Todolist from "../src/components/Todolist.js";
+import Provider from "./contexts/Reducers.js";
 import App from "./App";
+import { createStore } from 'redux'
 import reportWebVitals from "./reportWebVitals";
+import tasksReducer from "./contexts/Reducers.js";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"; // Updated import
+
+const store = createStore(tasksReducer)
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
+    <Provider store={store}>
+
     <Router>
       <Routes>
         <Route path="/" element={<App />} />
-        <Route path="homepage" element={<HomePage />} />
         <Route path="Todolist" element={<Todolist />} />
       </Routes>
     </Router>
+    </Provider>
   </React.StrictMode>
 );
 
