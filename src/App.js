@@ -11,10 +11,12 @@ function App() {
     margin-left: 90px;
   `;
   return (
+
       <Wrapper>
          <HomePage/>
         <Img src={HeroImage} alt="img" className="img" />
       </Wrapper>
+
   );
 }
 

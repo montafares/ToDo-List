@@ -1,23 +1,21 @@
 import React from "react";
 
+
 export const TodoListContext = React.createContext();
 let letid = 0;
 
 export const tasksReducer = (tasks, action) => {
-  if (localStorage.getItem('todos')) {
-    let ls = localStorage.getItem('todos');
-    let todosarray = ls.split(',');
-    console.log(todosarray);
-    tasks =  todosarray;
-  }
+ 
   switch (action.type) {
+    
     case "ADD": {
       return {
         
         todos: [
           ...tasks.todos,
-
+          
           {
+            date: action.date,
             newToDo: action.newToDo,
             number: action.number,
             completed: false,
@@ -25,12 +23,12 @@ export const tasksReducer = (tasks, action) => {
             
           },
           
-        ],
-      };
       
-    }
-    
+          
+        ],
 
+      };
+    }
     case "TOGGLE": {
       return {
         ...tasks,
@@ -57,7 +55,9 @@ export const tasksReducer = (tasks, action) => {
 };
 
 export const Provider = ({ children }) => {
+
   const [tasks, dispatch] = React.useReducer(tasksReducer, { todos: [] });
+
   return (
 
     <TodoListContext.Provider value={{ tasks, dispatch }}>
@@ -65,4 +65,5 @@ export const Provider = ({ children }) => {
     </TodoListContext.Provider>
   );
 };
+
 export default Provider;
