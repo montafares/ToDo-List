@@ -6,7 +6,9 @@ export const Wrapper = styled.div`
   margin-top: 58px;
   margin-left: 124px;
   width: 438px;
-  height: 653px;
+  height: 653
+  
+  80px;
   flex-shrink: 0;
   border-radius: 30px;
   background: linear-gradient(
@@ -23,7 +25,7 @@ export const Button = styled.button`
   border: 2px solid yellow;
   background-color: transparent;
   margin : 50px;
-  width: 331px;
+  width: 325px;
   height: 50px;
   font-family: "Montserrat";
   font-size: 20px;
@@ -116,8 +118,19 @@ justify-content: center;
    font-family: "Calibri_Bold";
   font-size: 17px;
   font-weight: 300;
+  
 `;
-
+export const Tap = styled.button`
+  align-items: center;
+  margin-left: ${(props) => (props.left === "left" ? "29px;" : "0px")};
+  width: 190px;
+  height: 36px;
+  color : #000;
+  font-family: "Calibri_Bold";
+  font-size: 20px;
+  font-weight: 300;
+  background-color: steelblue;
+`;
 export const Index = styled.div`
   display: flex;
   justify-content: space-between;

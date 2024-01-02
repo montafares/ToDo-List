@@ -114,13 +114,16 @@ export const Todolist = (index)=> {
                   ) : null}
                 </React.Fragment>);
             })}
-                    <Button onClick={save}>Stock Data</Button>
+                   
+                   <Button onClick={save}>Stock Data</Button>
 
             <Eclipse src={Eclipse4} alt="alt" />
             <Eclipse src={Eclipse3} alt="alt" />
             <Eclipse src={Eclipse2} alt="alt" />
           </ul>
+         
         </Container>
+        
       </Wrapper>
   );
 }

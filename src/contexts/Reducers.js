@@ -19,7 +19,6 @@ export const tasksReducer = (tasks, action) => {
             newToDo: action.newToDo,
             number: action.number,
             completed: false,
-            id : letid++,
             
           },
           
@@ -29,6 +28,7 @@ export const tasksReducer = (tasks, action) => {
 
       };
     }
+    
     case "TOGGLE": {
       return {
         ...tasks,
